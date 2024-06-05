@@ -1,4 +1,5 @@
-const { connect, connection } = require('mongoose');
+const { connect, connection } = require('mongodb');
+const mongoose = require('mongoose');
 
 // Connecting to the MongoDB database using the MongoDB URI provided in the environment
 // variables or using the default URI if the environment variable is not set

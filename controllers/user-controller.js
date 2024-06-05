@@ -2,28 +2,28 @@ const { User, Thought } = require("../models");
 
 const userController = {
   // get all users
-  getAllUsers(req, res) {
+  getUsers: (req, res) => {
     User.find({})
       .then(userData => res.json(userData))
       .catch(err => res.status(500).json(err));
   },
 
   // get single user by id
-  getUserById(req, res) {
+  getUserById: (req, res) => {
     User.findById(req.params.id)
       .then(userData => res.json(userData))
       .catch(err => res.status(500).json(err));
   },
 
   // create a new user
-  createUser(req, res) {
+  createUser: (req, res) => {
     User.create(req.body)
       .then(userData => res.json(userData))
       .catch(err => res.status(500).json(err));
   },
 
   // update a user
-  updateUser(req, res) {
+  updateUser: (req, res) => {
     User.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .then(userData => {
         if (!userData) {
@@ -35,7 +35,7 @@ const userController = {
   },
 
   // delete user (BONUS: and delete associated thoughts)
-  deleteUser(req, res) {
+  deleteUser: (req, res) => {
     User.findByIdAndDelete(req.params.id)
       .then(userData => {
         if (!userData) {
@@ -47,7 +47,7 @@ const userController = {
   },
 
   // add friend to friend list
-  addFriend(req, res) {
+  addFriend: (req, res) => {
     User.findByIdAndUpdate(req.params.id, { $push: { friends: req.params.friendId } }, { new: true })
       .then(userData => {
         if (!userData) {
@@ -59,7 +59,7 @@ const userController = {
   },
 
   // remove friend from friend list
-  removeFriend(req, res) {
+  removeFriend: (req, res) => {
     User.findByIdAndUpdate(req.params.id, { $pull: { friends: req.params.friendId } }, { new: true })
       .then(userData => {
         if (!userData) {

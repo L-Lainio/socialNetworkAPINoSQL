@@ -1,27 +1,31 @@
 const router = require("express").Router();
+
 const {
     getUsers,
-    getSingleUser,
+    getUserById,
     createUser,
     updateUser,
     deleteUser,
     addFriend,
-    deleteFriend
-    // checkFriendRemoves?
-    
-} = require('../../controllers/thought-controller');
+    removeFriend
+} = require('../../controllers/user-controller');
 
+// Define routes directly on the router
+router.route('/api/users')
+    .get(getUsers)
+    .post((req, res, next) => {
+        // Additional middleware logic goes here
+        // This middleware function can handle any preprocessing before calling the final controller function
+        next(); // Call next to proceed to the final controller function
+    }, createUser);
 
-// /api/users
-router.route('/').get(getUsers).post(createUser);
+router.route('/api/users/:userId')
+    .get(getUserById)
+    .put(updateUser)
+    .delete(deleteUser);
 
-// /api/users/:userId
-router.route('/:userId').get(getSingleUser);
-router.route('/:userId').put(updateUser);
-router.route('/:userId').delete(deleteUser);
+router.route('/api/users/:userId/friends/:friendId')
+    .post(addFriend)
+    .delete(removeFriend);
 
-// /api/users/:userId/friends/:friendId
-router.route('/:userId/friends/:friendId').post(addFriend);
-router.route('/:userId/friends/:friendId').delete(deleteFriend);
-
-module.exports = router
+module.exports = router;

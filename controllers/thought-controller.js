@@ -1,4 +1,4 @@
-const { Thought, User } = require("../models");
+const { Thought, User } = require('../models');
 
 const thoughtController = {
   // Define the ThoughtController object, which contains methods for handling various API requests related to thoughts
@@ -14,34 +14,83 @@ const thoughtController = {
 
   // get single thought by id
   async getSingleThought(req, res) {
-
-
+    try {
+      const thoughts = await Thought.findOne({});
+      if (!thoughts) {
+        res.status(404).json({ message: 'No thought found' });
+      } else {
+        res.json(thoughts);
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
 
   // create a thought
   async createThought(req, res) {
-
+    try {
+      const thought = await Thought.create(req.body);
+      res.status(200).json(thought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   },
 
   // update thought
   async updateThought(req, res) {
-
+    try {
+      const thought = await Thought.findIdAndUpdate(req.params, req.body, { new: true });
+      if (!thought) {
+        res.status(404).json({ message: 'No thought found' });
+      } else {
+        res.json(thought);
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
 
   // delete thought
   async deleteThought(req, res) {
-
+    try {
+      const thought = await Thought.findByIdAndDelete(req.params);
+      res.status(200).json(thought);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
 
   // add a reaction to a thought
   async addReaction(req, res) {
-
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { reqparams },
+        { $push: { reactions: req.body } },
+        { new: true }
+      );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
 
   // remove reaction from a thought
   async removeReaction(req, res) {
-    
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { reqparams },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
+        { new: true }
+      );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
+
 };
 
-module.exports = thoughtController;
+  module.exports = thoughtController;

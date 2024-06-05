@@ -22,7 +22,8 @@ router.route('/')
     });
 
 // Define the routes for GET a single Thought and PUT a Thought by ID
-router.route('/:thoughtId')
+router
+.route('/:thoughtId')
     .get((req, res) => {
         // Callback function for GET a single Thought
         getThoughtById(req, res);

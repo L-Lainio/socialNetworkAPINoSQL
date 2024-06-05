@@ -1,5 +1,5 @@
 const { Schema, Types } = require('mongoose');
-const mongoose = require('mongodb');
+const mongodb = require('mongodb');
 const formatDate = require('../utils/dateFormat')
 
 const reactionSchema = new Schema(

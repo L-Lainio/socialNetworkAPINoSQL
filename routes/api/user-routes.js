@@ -11,7 +11,7 @@ const {
 } = require('../../controllers/user-controller');
 
 // Define routes directly on the router
-router.route('/api/users')
+router.route('/')
     .get(getUsers)
     .post((req, res, next) => {
         // Additional middleware logic goes here
@@ -19,12 +19,12 @@ router.route('/api/users')
         next(); // Call next to proceed to the final controller function
     }, createUser);
 
-router.route('/api/users/:userId')
+router.route('/:userId')
     .get(getUserById)
     .put(updateUser)
     .delete(deleteUser);
 
-router.route('/api/users/:userId/friends/:friendId')
+router.route('/:userId/friends/:friendId')
     .post(addFriend)
     .delete(removeFriend);
 

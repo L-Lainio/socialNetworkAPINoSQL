@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 const {
-    getThoughts,
-    getThoughtById,
+    getAllThoughts,
+    getSingleThought,
     createThought,
     updateThought,
     deleteThought,
@@ -14,7 +14,7 @@ const {
 router.route('/')
     .get((req, res) => {
         // Callback function for GET all Thoughts
-        getThoughts(req, res);
+        getAllThoughts(req, res);
     })
     .post((req, res) => {
         // Callback function for POST a new Thought
@@ -26,7 +26,7 @@ router
 .route('/:thoughtId')
     .get((req, res) => {
         // Callback function for GET a single Thought
-        getThoughtById(req, res);
+        getSingleThought(req, res);
     })
     .put((req, res) => {
         // Callback function for PUT a Thought by ID

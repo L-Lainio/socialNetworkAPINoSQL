@@ -67,7 +67,7 @@ const thoughtController = {
   async addReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { reqparams },
+        { _id: req.params.thoughtId }, // Assuming thoughtId is the parameter you are looking for
         { $push: { reactions: req.body } },
         { new: true }
       );
@@ -81,7 +81,7 @@ const thoughtController = {
   async removeReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { reqparams },
+        { _id: req.params.thoughtId, "reactions.reactionId": req.params.reactionId },
         { $pull: { reactions: { reactionId: req.params.reactionId } } },
         { new: true }
       );

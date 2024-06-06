@@ -1,13 +1,34 @@
-const { connect, connection } = require('mongodb');
-const mongoose = require('mongoose');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://arollainio:<password>@cluster0.qlypbs9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-// Connecting to the MongoDB database using the MongoDB URI provided in the environment
-// variables or using the default URI if the environment variable is not set
-mongoose.connect(process.env.MONOGDB_URI || 'mongodb://localhost:27017/socialNetwork', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 
-// connect(connectionString);
+async function run() {
+    try {
+        // Connect the client to the server	(optional starting in v4.7)
+        await client.connect();
+        // Send a ping to confirm a successful connection
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    } finally {
+        // Ensures that the client will close when you finish/error
+        await client.close();
+    }
+}
+run().catch(console.dir);
 
-module.exports = mongoose.connection
+
+// mongoose.connect('mongodb://localhost/socialnetwork', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// const db = mongoose.connection;
+
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// module.exports = mongoo.connection;

@@ -1,3 +1,16 @@
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/mydatabase', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+module.exports = db;
+
+// when looking online to trouble shoot i was given the info below but when i input the app crashes
+
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://arollainio:<password>@cluster0.qlypbs9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -23,12 +36,3 @@ async function run() {
     }
 }
 run().catch(console.dir);
-
-
-// mongoose.connect('mongodb://localhost/socialnetwork', { useNewUrlParser: true, useUnifiedTopology: true });
-
-// const db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// module.exports = mongoo.connection;

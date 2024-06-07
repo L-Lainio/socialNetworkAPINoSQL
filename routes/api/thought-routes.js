@@ -12,30 +12,25 @@ const {
 
 // Define the routes for GET all Thoughts and POST a new Thought
 router.route('/')
-    .get((req, res) => {
-        // Callback function for GET all Thoughts
-        getAllThoughts(req, res);
-    })
-    .post((req, res) => {
-        // Callback function for POST a new Thought
-        createThought(req, res);
-    });
+    // Callback function for GET all Thoughts
+    .get(getAllThoughts)
 
 // Define the routes for GET a single Thought and PUT a Thought by ID
 router
-.route('/:thoughtId')
+    .route('/:userId')
     .get((req, res) => {
         // Callback function for GET a single Thought
         getSingleThought(req, res);
     })
+        // Callback function for POST a new Thought
+    .post(createThought)
+
     .put((req, res) => {
         // Callback function for PUT a Thought by ID
         updateThought(req, res);
     })
-    .delete((req, res) => {
         // Callback function for DELETE a Thought
-        deleteThought(req, res);
-    });
+    .delete(deleteThought);
 
 // Define the route for POST a reaction to a Thought
 router.route('/:thoughtId/reactions')

@@ -29,17 +29,22 @@ const thoughtController = {
 
   // create a thought
   async createThought(req, res) {
+    // console.log({req,res})
     try {
       const thought = await Thought.create(req.body);
+      // console.log({thought})
+      console.log(req.body, req.params, thought._id);
       const user = await User.findOneAndUpdate(
-        { _id: req.body.userId },
+        { _id: req.params.userId },
         { $push: { thoughts: thought._id } },
         { new: true }
       );
+console.log({user});
+
       if (!user) {
-        res.status(404).json({ message: 'No user found' });
+        res.status(404).json({ message: 'No user found!' });
       }
-      res.status(200).json();
+      res.status(200).json({ message: 'Thought successfully created!'});
     } catch (err) {
       res.status(500).json(err);
     }
@@ -48,7 +53,9 @@ const thoughtController = {
   // update thought
   async updateThought(req, res) {
     try {
-      const thought = await Thought.findIdAndUpdate(req.params, req.body, { new: true });
+      // { req.body }, { new: true }
+      const thought = await Thought.findOneAndUpdate({ _id: req.body.thoughtId });
+      console.log({thought});
       if (!thought) {
         res.status(404).json({ message: 'No thought found' });
       } else {
@@ -62,8 +69,14 @@ const thoughtController = {
 
   // delete thought
   async deleteThought(req, res) {
+    console.log(req.params);
     try {
-      const thought = await Thought.findByIdAndDelete({_id: req.params.thoughtId});
+      // { $addToSet: { reactions: req.body } },
+      const thought = await Thought.findByIdAndDelete({ _id: req.params.thoughtId }, { runValidators: true, new: true });
+      console.log({thought});
+      if (!thought) {
+        res.status(404).json({ message: 'No thought found' });
+      }
       res.status(200).json(thought);
     } catch (err) {
       console.log(err);

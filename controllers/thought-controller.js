@@ -63,7 +63,7 @@ const thoughtController = {
   // delete thought
   async deleteThought(req, res) {
     try {
-      const thought = await Thought.findByIdAndDelete(req.params);
+      const thought = await Thought.findByIdAndDelete({_id: req.params.thoughtId});
       res.status(200).json(thought);
     } catch (err) {
       console.log(err);

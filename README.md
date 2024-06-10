@@ -18,55 +18,29 @@ I WANT an API for my social network that uses a NoSQL database
 SO THAT my website can handle large amounts of unstructured data
 
 ## Summary
-To set up your models and API routes, follow these guidelines:
+The challenge involves building an API for a social network web application using Express.js for routing, a MongoDB database, and the Mongoose ODM. The API should allow users to share thoughts, react to friends' thoughts, and create a friend list. The application won't be deployed, so a walkthrough video demonstrating its functionality is required.
 
-Models:
+The user story is about a social media startup needing an API for their social network that uses a NoSQL database to handle large amounts of unstructured data.
 
-User:
+Acceptance criteria include starting the server, syncing Mongoose models to the MongoDB database, displaying data in JSON format for GET routes, and successfully creating, updating, and deleting users, thoughts, reactions, and friends using API routes in Insomnia.
 
-Fields: username (String, Unique, Required, Trimmed), email (String, Required, Unique, Valid email address), thoughts (Array of _id values referencing the Thought model), friends (Array of _id values referencing the User model).
-Schema Settings: Create a virtual called friendCount to retrieve the length of the user's friends array field on query.
-Thought:
+The mock-up includes animations demonstrating testing of various API routes in Insomnia for users, thoughts, friends, and reactions.
 
-Fields: thoughtText (String, Required, 1-280 characters), createdAt (Date, Default current timestamp), username (String, Required), reactions (Array of nested documents).
-Schema Settings: Create a virtual called reactionCount to retrieve the length of the thought's reactions array field on query.
-Reaction (Schema Only):
+The models for the User and Thought include specific fields and schema settings, such as virtuals for friend count and reaction count, and default values for timestamps.
 
-Fields: reactionId (Mongoose's ObjectId data type), reactionBody (String, Required, 280 character max), username (String, Required), createdAt (Date, Default current timestamp).
-Schema Settings: Used as the reaction field's subdocument schema in the Thought model.
-API Routes:
-
-/api/users:
-
-GET all users
-GET a single user by _id with populated thought and friend data
-POST a new user
-PUT to update a user by _id
-DELETE to remove a user by _id (Bonus: Remove associated thoughts)
-/api/users/:userId/friends/:friendId:
-
-POST to add a new friend to a user's friend list
-DELETE to remove a friend from a user's friend list
-/api/thoughts:
-
-GET all thoughts
-GET a single thought by _id
-POST to create a new thought (include pushing its _id to the associated user's thoughts array)
-PUT to update a thought by _id
-DELETE to remove a thought by _id
-/api/thoughts/:thoughtId/reactions:
-
-POST to create a reaction in a thought's reactions array
-DELETE to remove a reaction by its reactionId value.
+API routes include endpoints for managing users, thoughts, friends, and reactions, allowing actions like creating, updating, and deleting users, thoughts, friends, and reactions.
 
 
 
-## Example Images (im currently troubleshooting 6.5.2024)
-![my current issue working on it](/images/Zight%202024-6-5%20at%2010.49.19%20PM.png)
-<!-- ![]()
-![]()
-![]()
-![]() -->
+## Example Images
+[Link to walkthrough](https://share.zight.com/X6uv8xYg)
+
+![Walkthrough](/images/Zight%20Recording%202024-6-10%20at%203.48.48%20PM.gif)
+
+![Screenshot](/images/Zight%202024-6-10%20at%203.30.59%20PM.png)
+![Screenshot](/images/Zight%202024-6-10%20at%203.30.42%20PM.png)
+![Screenshot](/images/Zight%202024-6-10%20at%203.30.29%20PM.png)
+![Screenshot](/images/Zight%202024-6-10%20at%203.29.29%20PM.png)
 
 
 ## Author

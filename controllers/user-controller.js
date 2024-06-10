@@ -10,9 +10,14 @@ const userController = {
 
   // get single user by id
   getUserById: (req, res) => {
-    User.findById(req.params.id)
-      .then(userData => res.json(userData))
-      .catch(err => res.status(500).json(err));
+    console.log(req.params)
+    try {
+      const userData = User.findOne({ _id: req.params.userId }).select('-__v').populate('thoughts')
+      res.json(userData)
+    } catch (err) {
+
+      res.status(500).json(err)
+    }
   },
 
   // create a new user

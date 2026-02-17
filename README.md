@@ -43,7 +43,3 @@ API routes include endpoints for managing users, thoughts, friends, and reaction
 ![Screenshot](/images/Zight%202024-6-10%20at%203.29.29%20PM.png)
 
 
-## Author
-
-Written by Lora Lainio, if you like what you see and would like to colab contact me.
-

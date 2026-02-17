@@ -47,6 +47,3 @@ API routes include endpoints for managing users, thoughts, friends, and reaction
 
 Written by Lora Lainio, if you like what you see and would like to colab contact me.
 
-## Contact Me
-- GitHub: [L-Lainio](https://github.com/L-Lainio/)
-- Email: arollainio@gmail.com
